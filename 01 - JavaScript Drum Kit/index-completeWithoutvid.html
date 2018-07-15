@@ -59,6 +59,33 @@
 
 <script>
 
+function playSound(key) {
+    var div = document.querySelector(`div[data-key="${key}"]`);
+    var track = document.querySelector(`audio[data-key="${key}"]`);
+    if (!div || !track) {
+      return;
+    } 
+    track.currentTime = 0;
+    div.classList.toggle("playing");
+    track.play();
+}
+
+function stopSound(key) {
+  var div = document.querySelector(`div[data-key="${key}"]`);
+  if (!div) {
+    return;
+  }
+  div.classList.toggle("playing");
+}
+
+document.addEventListener('keypress', function(e) {
+  playSound(e.key.toUpperCase().charCodeAt());
+});
+
+document.addEventListener('keyup', function (e) {
+  stopSound(e.key.toUpperCase().charCodeAt());
+});
+
 </script>
 
 
