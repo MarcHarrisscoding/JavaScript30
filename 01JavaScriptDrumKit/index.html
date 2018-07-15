@@ -59,7 +59,7 @@
 
 <script>
 
-function playSoundKbd(key) {
+function playSound(key) {
     var div = document.querySelector(`div[data-key="${key}"]`);
     var track = document.querySelector(`audio[data-key="${key}"]`);
     if (!div || !track) {
@@ -69,26 +69,6 @@ function playSoundKbd(key) {
     div.classList.toggle("playing");
     track.play();
 }
-
-function playSoundClick(key) {
-  var div = document.querySelector(`div[data-key="${key}"]`);
-  var track = document.querySelector(`audio[data-key="${key}"]`);
-  if (!div || !track) {
-    return;
-  }
-  track.currentTime = 0;
-  div.classList.toggle("playing");
-  track.play();
-}
-
-function stopSoundClick(key) {
-  var div = document.querySelector(`div[data-key="${key}"]`);
-  if (!div || !track) {
-    return;
-  }
-  div.classList.toggle("playing");
-}
-
 
 function stopSound(key) {
   var div = document.querySelector(`div[data-key="${key}"]`);
@@ -115,17 +95,32 @@ for (var i = 0; i < keys.length; i++) {
   keys[i].addEventListener('click', function (e) {
     var value = e.target.innerText.charCodeAt();
 
-    playSoundClick(value);
+    playSound(value);
+
+  }); 
+
+  keys[i].addEventListener('touchstart', function (e) {
+    var value = e.target.innerText.charCodeAt();
+
+    playSound(value);
 
   }); 
   
   keys[i].addEventListener('mouseup', function (e) {
     var value = e.target.innerText.charCodeAt();
 
-    playSoundClick(value);
+    stopSound(value);
+
+  });
+
+  keys[i].addEventListener('touchend', function (e) {
+    var value = e.target.innerText.charCodeAt();
+
+    stopSound(value);
 
   });
 }
+
 // COMPLETE WITHOUT GUIDE
 
 </script>
