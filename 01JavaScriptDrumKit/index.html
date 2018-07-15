@@ -59,7 +59,7 @@
 
 <script>
 
-function playSound(key) {
+function playSoundKbd(key) {
     var div = document.querySelector(`div[data-key="${key}"]`);
     var track = document.querySelector(`audio[data-key="${key}"]`);
     if (!div || !track) {
@@ -69,6 +69,26 @@ function playSound(key) {
     div.classList.toggle("playing");
     track.play();
 }
+
+function playSoundClick(key) {
+  var div = document.querySelector(`div[data-key="${key}"]`);
+  var track = document.querySelector(`audio[data-key="${key}"]`);
+  if (!div || !track) {
+    return;
+  }
+  track.currentTime = 0;
+  div.classList.toggle("playing");
+  track.play();
+}
+
+function stopSoundClick(key) {
+  var div = document.querySelector(`div[data-key="${key}"]`);
+  if (!div || !track) {
+    return;
+  }
+  div.classList.toggle("playing");
+}
+
 
 function stopSound(key) {
   var div = document.querySelector(`div[data-key="${key}"]`);
@@ -82,10 +102,30 @@ document.addEventListener('keypress', function(e) {
   playSound(e.key.toUpperCase().charCodeAt());
 });
 
+
 document.addEventListener('keyup', function (e) {
   stopSound(e.key.toUpperCase().charCodeAt());
 });
 
+// CLICK FOR PHONE AND PC 
+
+var keys = document.querySelectorAll('kbd');
+
+for (var i = 0; i < keys.length; i++) {
+  keys[i].addEventListener('click', function (e) {
+    var value = e.target.innerText.charCodeAt();
+
+    playSoundClick(value);
+
+  }); 
+  
+  keys[i].addEventListener('mouseup', function (e) {
+    var value = e.target.innerText.charCodeAt();
+
+    playSoundClick(value);
+
+  });
+}
 // COMPLETE WITHOUT GUIDE
 
 </script>
